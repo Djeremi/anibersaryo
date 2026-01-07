@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 1st Anniversary ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            --env-color: #f08080;
+            --env-dark: #e07070;
+            --letter-bg: #ffffff;
+            --env-width: 300px;
+            --env-height: 200px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            margin: 0;
+            font-family: 'Caveat', cursive;
+            overflow: hidden; 
+        }
+
+        /* --- BACKGROUND: Floating Kittens --- */
+        .cat-bg {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- ENVELOPE --- */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .envelope {
+            position: relative;
+            width: var(--env-width);
+            height: var(--env-height);
+            background-color: var(--env-dark);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-label {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            z-index: 15;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 4;
+            border-left: calc(var(--env-width) / 2) solid transparent;
+            border-right: calc(var(--env-width) / 2) solid transparent;
+            border-top: calc(var(--env-height) / 2) solid var(--env-color);
+            transform-origin: top;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            border-left: calc(var(--env-width) / 2) solid var(--env-color);
+            border-right: calc(var(--env-width) / 2) solid var(--env-color);
+            border-bottom: calc(var(--env-height) / 2) solid var(--env-dark);
+            border-top: calc(var(--env-height) / 2) solid transparent;
+            bottom: 0;
+        }
+
+        /* --- THE LETTER --- */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 80%;
+            background: var(--letter-bg);
+            z-index: 2;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: all 0.8s ease-in-out;
+            border-radius: 5px;
+        }
+
+        .envelope.open .letter {
+            position: fixed;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important; 
+            width: 90vw;
+            max-width: 600px;
+            height: 85vh;
+            z-index: 1000 !important;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: none !important;
+        }
+
+        .envelope.open::before {
+            transform: rotateX(180deg);
+            z-index: 0; 
+        }
+
+        .envelope.open .envelope-label { opacity: 0; }
+
+        h2 { font-family: 'Dancing Script', cursive; color: #d81b60; font-size: 2.2rem; margin: 0 0 20px 0; }
+        
+        .text { 
+            font-size: 1.4rem; 
+            color: #444; 
+            line-height: 1.6; 
+            text-align: left; 
+        }
+
+        .ps {
+            margin-top: 30px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            border-left: 4px solid #d81b60;
+            font-weight: bold;
+            color: #d81b60;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: -70px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            font-family: 'Dancing Script', cursive;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .envelope.open ~ .instruction { display: none; }
+
+        /* Scrollbar styling */
+        .letter::-webkit-scrollbar { width: 8px; }
+        .letter::-webkit-scrollbar-thumb { background: var(--env-color); border-radius: 10px; }
+
+        @media (max-width: 600px) {
+            h2 { font-size: 1.8rem; }
+            .text { font-size: 1.2rem; }
+            .envelope.open .letter { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper">
+        <div class="envelope" id="myEnvelope" onclick="toggleEnvelope(event)">
+            <div class="envelope-label">Happy 1st Anniversary ❤️</div>
+            
+            <div class="letter" id="myLetter">
+                <h2>Happy 1st Anniversary, my Baby, my Thea!</h2>
+                <div class="text">
+                    To my most beautiful and amazing girlfriend, Happy 1st Anniversary! Looking back at the past year, I am just so overwhelmed by how much has changed. 
+                    <br><br>
+                    Before you came into my life, especially when I moved here to Norway I really didn't see a future. I was just going with the flow, feeling numb and lost. But you brought a light into my life that I didn't even know was missing. Because of you, I’m not that person anymore. I have goals, I have plans, and I have a future because I see you in it.
+                    <br><br>
+                    Thank you for bearing with me for these 12 months. I know I’m not perfect. I know I can be stubborn, moody, and sometimes pikunin. I’m sorry if there are times when I can’t find the words to say what I’m feeling and I leave you guessing, it’s like there’s a wall in front of me and a rusty ladder that’s scary to climb. But for you, and for us, I will climb any mountain. I promise to keep working on my communication because I never want you to feel like you’re alone in this.
+                    <br><br>
+                    Thank you for being my number one supporter and for believing in me even when I didn't believe in myself. You helped me trade my insecurities for gratitude. I am so thankful to the Lord that He put you in my life. 
+                    <br><br>
+                    I promise you right now: I will never give up on us. Whether we are busy, miles apart, or having a disagreement, my love for you is a constant. It’s not just for today—it’s for life.
+                    <br><br>
+                    I love all of you—all the "nooks and crannies," even the parts of yourself that you’re unsure about. You are never too much for me. Even if I lost all my memories, I know my heart would still recognize you and seek you out.
+                    <br><br>
+                    I’m sorry for being a bit "ranty" and corny, but I’ve stopped caring about the cringe because you’re worth it! Here’s to the last year, and to the next 80 years together. I love you more than these words can ever say. Tsaka I'm sorry rin for being aggressive with you minsan. 
+                    <br><br>
+                    Forever and ever yours, <br>
+                    <strong>Jeremy</strong>
+
+                    <div class="ps">
+                        <strong>P.S.</strong> Mwah! ❤️ (x365—one for every day of our first year!)
+                    </div>
+                    <br>
+                    <small style="color: #bbb; display: block; text-align: center;">(Tap anywhere to close)</small>
+                </div>
+            </div>
+        </div>
+        <div class="instruction">Tap the envelope to open</div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('myEnvelope');
+        function toggleEnvelope(event) {
+            envelope.classList.toggle('open');
+            event.stopPropagation();
+        }
+
+        const cats = ['🐱', '🐈', '😸', '😽', '🐾', '😺', '🐈‍⬛'];
+        function createCat() {
+            const cat = document.createElement('div');
+            cat.classList.add('cat-bg');
+            cat.innerHTML = cats[Math.floor(Math.random() * cats.length)];
+            cat.style.left = Math.random() * 100 + 'vw';
+            cat.style.animationDuration = Math.random() * 3 + 6 + 's'; 
+            cat.style.fontSize = Math.random() * 20 + 25 + 'px';
+            document.body.appendChild(cat);
+            setTimeout(() => { cat.remove(); }, 9000);
+        }
+        setInterval(createCat, 500);
+    </script>
+
+</body>
+</html>
