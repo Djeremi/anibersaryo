@@ -16,178 +16,66 @@
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: var(--bg-gradient);
-            margin: 0;
-            font-family: 'Caveat', cursive;
-            overflow: hidden; 
-        }
-
-        /* --- BACKGROUND: Floating Kittens --- */
-        .cat-bg {
-            position: absolute;
-            top: -10%;
-            user-select: none;
-            pointer-events: none;
-            z-index: 1;
-            animation: floatUp 8s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background: var(--bg-gradient);
+            margin: 0; font-family: 'Caveat', cursive; overflow: hidden; 
         }
 
         /* --- ENVELOPE --- */
-        .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .envelope {
-            position: relative;
-            width: var(--env-width);
-            height: var(--env-height);
-            background-color: var(--env-dark);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .envelope-label {
-            position: absolute;
-            bottom: 25px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem;
-            z-index: 15;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            z-index: 4;
-            border-left: calc(var(--env-width) / 2) solid transparent;
-            border-right: calc(var(--env-width) / 2) solid transparent;
-            border-top: calc(var(--env-height) / 2) solid var(--env-color);
-            transform-origin: top;
-            transition: all 0.6s ease-in-out;
-        }
-
-        .envelope::after {
-            content: "";
-            position: absolute;
-            z-index: 3;
-            border-left: calc(var(--env-width) / 2) solid var(--env-color);
-            border-right: calc(var(--env-width) / 2) solid var(--env-color);
-            border-bottom: calc(var(--env-height) / 2) solid var(--env-dark);
-            border-top: calc(var(--env-height) / 2) solid transparent;
-            bottom: 0;
-        }
+        .envelope-wrapper { position: relative; cursor: pointer; z-index: 10; }
+        .envelope { position: relative; width: var(--env-width); height: var(--env-height); background-color: var(--env-dark); box-shadow: 0 15px 35px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
+        .envelope-label { position: absolute; bottom: 25px; width: 100%; text-align: center; color: white; font-family: 'Dancing Script', cursive; font-size: 1.6rem; z-index: 15; pointer-events: none; transition: opacity 0.3s; }
+        
+        .envelope::before { content: ""; position: absolute; top: 0; z-index: 4; border-left: calc(var(--env-width) / 2) solid transparent; border-right: calc(var(--env-width) / 2) solid transparent; border-top: calc(var(--env-height) / 2) solid var(--env-color); transform-origin: top; transition: all 0.6s ease-in-out; }
+        .envelope::after { content: ""; position: absolute; z-index: 3; border-left: calc(var(--env-width) / 2) solid var(--env-color); border-right: calc(var(--env-width) / 2) solid var(--env-color); border-bottom: calc(var(--env-height) / 2) solid var(--env-dark); border-top: calc(var(--env-height) / 2) solid transparent; bottom: 0; }
 
         /* --- THE LETTER --- */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 5%;
-            width: 90%;
-            height: 80%;
-            background: var(--letter-bg);
-            z-index: 2;
-            padding: 30px;
-            box-sizing: border-box;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            transition: all 0.8s ease-in-out;
-            border-radius: 5px;
-        }
-
+        .letter { position: absolute; bottom: 10px; left: 5%; width: 90%; height: 80%; background: var(--letter-bg); z-index: 2; padding: 30px; box-sizing: border-box; text-align: center; overflow-y: auto; transition: all 0.8s ease-in-out; border-radius: 5px; }
+        
         .envelope.open .letter {
-            position: fixed;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important; 
-            width: 90vw;
-            max-width: 600px;
-            height: 85vh;
-            z-index: 1000 !important;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            animation: none !important;
+            position: fixed; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; 
+            width: 90vw; max-width: 600px; height: 85vh; z-index: 1000 !important; padding: 40px; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .envelope.open::before {
-            transform: rotateX(180deg);
-            z-index: 0; 
+        /* --- PLAYER CONTROLS --- */
+        .player-container { margin-bottom: 20px; }
+        .music-btn {
+            background: #d81b60; color: white; border: none; padding: 10px 15px;
+            border-radius: 25px; font-family: 'Dancing Script', cursive; font-size: 1.1rem;
+            cursor: pointer; transition: 0.3s; margin: 0 5px;
         }
+        .music-btn:hover { background: #ad1457; transform: scale(1.05); }
 
+        .envelope.open::before { transform: rotateX(180deg); z-index: 0; }
         .envelope.open .envelope-label { opacity: 0; }
 
-        h2 { font-family: 'Dancing Script', cursive; color: #d81b60; font-size: 2.2rem; margin: 0 0 20px 0; }
-        
-        .text { 
-            font-size: 1.4rem; 
-            color: #444; 
-            line-height: 1.6; 
-            text-align: left; 
-        }
+        h2 { font-family: 'Dancing Script', cursive; color: #d81b60; font-size: 2.2rem; margin: 0; }
+        .text { font-size: 1.4rem; color: #444; line-height: 1.6; text-align: left; }
 
-        .ps {
-            margin-top: 30px;
-            padding: 15px;
-            background: #fff5f5;
-            border-radius: 10px;
-            border-left: 4px solid #d81b60;
-            font-weight: bold;
-            color: #d81b60;
-        }
-
-        .instruction {
-            position: absolute;
-            bottom: -70px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-            font-family: 'Dancing Script', cursive;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-
+        .ps { margin-top: 30px; padding: 15px; background: #fff5f5; border-radius: 10px; border-left: 4px solid #d81b60; font-weight: bold; color: #d81b60; }
+        .instruction { position: absolute; bottom: -70px; width: 100%; text-align: center; color: white; font-size: 1.2rem; font-family: 'Dancing Script', cursive; background: rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 30px; backdrop-filter: blur(5px); }
         .envelope.open ~ .instruction { display: none; }
 
-        /* Scrollbar styling */
         .letter::-webkit-scrollbar { width: 8px; }
         .letter::-webkit-scrollbar-thumb { background: var(--env-color); border-radius: 10px; }
 
-        @media (max-width: 600px) {
-            h2 { font-size: 1.8rem; }
-            .text { font-size: 1.2rem; }
-            .envelope.open .letter { padding: 25px; }
-        }
+        @media (max-width: 600px) { h2 { font-size: 1.8rem; } .text { font-size: 1.2rem; } }
     </style>
 </head>
 <body>
+
+    <audio id="mySong"></audio>
 
     <div class="envelope-wrapper">
         <div class="envelope" id="myEnvelope" onclick="toggleEnvelope(event)">
             <div class="envelope-label">Happy 1st Anniversary ❤️</div>
             
             <div class="letter" id="myLetter">
+                <div class="player-container">
+                    <button class="music-btn" id="playBtn" onclick="toggleMusic(event)">🎵 Play Playlist</button>
+                    <button class="music-btn" onclick="nextSong(event)">⏭️ Next</button>
+                </div>
+
                 <h2>Happy 1st Anniversary, my Baby, my Thea!</h2>
                 <div class="text">
                     To my most beautiful and amazing girlfriend, Happy 1st Anniversary! Looking back at the past year, I am just so overwhelmed by how much has changed. 
@@ -210,8 +98,6 @@
                     <div class="ps">
                         <strong>P.S.</strong> Mwah! ❤️ (x365—one for every day of our first year!)
                     </div>
-                    <br>
-                    <small style="color: #bbb; display: block; text-align: center;">(Tap anywhere to close)</small>
                 </div>
             </div>
         </div>
@@ -220,24 +106,48 @@
 
     <script>
         const envelope = document.getElementById('myEnvelope');
+        const song = document.getElementById('mySong');
+        const playBtn = document.getElementById('playBtn');
+
+        // --- PLAYLIST SETTINGS ---
+        // Add song file names here!
+        const playlist = [
+            "audios/Aking Pahinga.opus", 
+            "audios/Pasensya Ka Na, Mahal Ko.opus", 
+            "audios/Frank Ely, Ame - Balang Araw (Official Lyric Video).opus"
+        ];
+        
+        let currentSongIndex = 0;
+        song.src = playlist[currentSongIndex];
+
         function toggleEnvelope(event) {
             envelope.classList.toggle('open');
             event.stopPropagation();
         }
 
-        const cats = ['🐱', '🐈', '😸', '😽', '🐾', '😺', '🐈‍⬛'];
-        function createCat() {
-            const cat = document.createElement('div');
-            cat.classList.add('cat-bg');
-            cat.innerHTML = cats[Math.floor(Math.random() * cats.length)];
-            cat.style.left = Math.random() * 100 + 'vw';
-            cat.style.animationDuration = Math.random() * 3 + 6 + 's'; 
-            cat.style.fontSize = Math.random() * 20 + 25 + 'px';
-            document.body.appendChild(cat);
-            setTimeout(() => { cat.remove(); }, 9000);
+        function toggleMusic(event) {
+            event.stopPropagation();
+            if (song.paused) {
+                song.play();
+                playBtn.innerHTML = "🔇 Pause";
+            } else {
+                song.pause();
+                playBtn.innerHTML = "🎵 Play Playlist";
+            }
         }
-        setInterval(createCat, 500);
-    </script>
 
+        function nextSong(event) {
+            event.stopPropagation();
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            song.src = playlist[currentSongIndex];
+            song.play();
+            playBtn.innerHTML = "🔇 Pause";
+        }
+
+        // Auto-play next song when current one ends
+        song.onended = function() {
+            nextSong({ stopPropagation: () => {} });
+        };
+    </script>
 </body>
 </html>
